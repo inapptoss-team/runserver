@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>연구실 탈출 게임 - 테스트</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #1a2a4a, #2d4a6b);
+        color: white;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        text-align: center;
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      h1 {
+        color: #64b5f6;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+      }
+
+      .status {
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 10px;
+        background: rgba(76, 175, 80, 0.2);
+        border: 1px solid #4caf50;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        margin: 10px;
+        background: linear-gradient(45deg, #2196f3, #21cbf3);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: 1.1em;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(33, 150, 243, 0.3);
+      }
+
+      .api-test {
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        text-align: left;
+      }
+
+      .api-result {
+        background: #1a1a1a;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+        font-family: monospace;
+        font-size: 0.9em;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .info {
+        margin: 20px 0;
+        padding: 15px;
+        background: rgba(33, 150, 243, 0.2);
+        border-radius: 10px;
+        border-left: 4px solid #2196f3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎮 연구실 탈출 게임</h1>
+
+      <div class="status">
+        ✅ 서버가 정상적으로 실행되고 있습니다!<br />
+        🌐 포트: 3000<br />
+        📱 안드로이드 접속: http://192.168.4.4:3000
+      </div>
+
+      <div class="info">
+        <strong>📋 테스트 정보:</strong><br />
+        • 인증 없이 바로 접속 가능<br />
+        • 모든 API 엔드포인트 접근 허용<br />
+        • CORS 설정 완료
+      </div>
+
+      <a href="./assets/lab/intro.html" class="btn">🎯 게임 시작하기</a>
+      <a href="./index.html" class="btn">🏠 메인 페이지</a>
+
+      <div class="api-test">
+        <h3>🔧 API 테스트</h3>
+        <button class="btn" onclick="testGameInfo()">게임 정보 조회</button>
+        <button class="btn" onclick="testPuzzles()">퍼즐 목록 조회</button>
+        <button class="btn" onclick="testProgress()">진행 상태 조회</button>
+        <div id="apiResult" class="api-result" style="display: none"></div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = "http://localhost:3000/api";
+
+      async function testGameInfo() {
+        try {
+          const response = await fetch(`${API_BASE}/game/info`);
+          const data = await response.json();
+          showResult("게임 정보", data);
+        } catch (error) {
+          showResult("게임 정보 (오류)", error.message);
+        }
+      }
+
+      async function testPuzzles() {
+        try {
+          const response = await fetch(`${API_BASE}/puzzle/all`);
+          const data = await response.json();
+          showResult("퍼즐 목록", data);
+        } catch (error) {
+          showResult("퍼즐 목록 (오류)", error.message);
+        }
+      }
+
+      async function testProgress() {
+        try {
+          const testPlayerId = "test-player-" + Date.now();
+          const response = await fetch(
+            `${API_BASE}/game/progress/${testPlayerId}`
+          );
+          const data = await response.json();
+          showResult("진행 상태", data);
+        } catch (error) {
+          showResult("진행 상태 (오류)", error.message);
+        }
+      }
+
+      function showResult(title, data) {
+        const resultDiv = document.getElementById("apiResult");
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `<strong>${title}:</strong><br><pre>${JSON.stringify(
+          data,
+          null,
+          2
+        )}</pre>`;
+      }
+
+      // 페이지 로드 시 서버 상태 확인
+      window.addEventListener("load", async () => {
+        try {
+          const response = await fetch(`${API_BASE}/game/info`);
+          if (response.ok) {
+            console.log("✅ 서버 연결 성공");
+          }
+        } catch (error) {
+          console.log("❌ 서버 연결 실패:", error);
+          document.querySelector(".status").innerHTML =
+            "❌ 서버 연결에 문제가 있습니다.<br>서버가 실행 중인지 확인해주세요.";
+          document.querySelector(".status").style.background =
+            "rgba(244, 67, 54, 0.2)";
+          document.querySelector(".status").style.borderColor = "#f44336";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "graduate-escape-game",
+  "version": "1.0.0",
+  "description": "안드로이드에서 실행 가능한 탈출 게임",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 3000 -c-1 --cors",
+    "dev": "http-server -p 3000 -c-1 --cors -o",
+    "android": "http-server -p 3000 -c-1 --cors -a 0.0.0.0"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "keywords": ["game", "escape", "puzzle", "android"],
+  "author": "Your Name",
+  "license": "MIT"
+}
