@@ -69,29 +69,29 @@ class PuzzleManager {
                 this.puzzleInput.style.display = 'none';
                 this.submitBtn.style.display = 'none';
             } else if (puzzle.type === 'drag-drop') {
-                 this.puzzleInput.style.display = 'none';
-                 this.submitBtn.style.display = 'none';
-                 this.loadHtmlPuzzle('../puzzles/puzzle01.html', '.chair-puzzle-container', objectName, this.initChairPuzzle.bind(this), false);
+                this.puzzleInput.style.display = 'none';
+                this.submitBtn.style.display = 'none';
+                this.loadHtmlPuzzle('../puzzles/puzzle01.html', '.chair-puzzle-container', objectName, this.initChairPuzzle.bind(this), false);
             } else if (puzzle.type === 'cabinet-lock') {
-                 this.puzzleInput.style.display = 'none';
-                 this.submitBtn.style.display = 'none';
-                 this.loadHtmlPuzzle('../puzzles/puzzle02.html', '.cabinet-puzzle-container', objectName, this.initCabinetPuzzle.bind(this), false);
+                this.puzzleInput.style.display = 'none';
+                this.submitBtn.style.display = 'none';
+                this.loadHtmlPuzzle('../puzzles/puzzle02.html', '.cabinet-puzzle-container', objectName, this.initCabinetPuzzle.bind(this), false);
             } else if (puzzle.type === 'mirror-code') {
-                 this.puzzleInput.style.display = 'none';
-                 this.submitBtn.style.display = 'none';
-                 this.loadHtmlPuzzle('../puzzles/puzzle03.html', '.mirror-puzzle-container', objectName, this.initMirrorPuzzle.bind(this), false);
+                this.puzzleInput.style.display = 'none';
+                this.submitBtn.style.display = 'none';
+                this.loadHtmlPuzzle('../puzzles/puzzle03.html', '.mirror-puzzle-container', objectName, this.initMirrorPuzzle.bind(this), false);
             } else if (puzzle.type === 'storage-clue') {
-                 this.puzzleInput.style.display = 'none';
-                 this.submitBtn.style.display = 'none';
-                 this.loadHtmlPuzzle('../puzzles/clue01.html', '.storage-clue-container', objectName, () => {
-                     this.completePuzzle('storage-clue');
-                 }, false);
+                this.puzzleInput.style.display = 'none';
+                this.submitBtn.style.display = 'none';
+                this.loadHtmlPuzzle('../puzzles/clue01.html', '.storage-clue-container', objectName, () => {
+                    this.completePuzzle('storage-clue');
+                }, false);
             } else if (puzzle.type === 'paper-clue') {
-                 this.puzzleInput.style.display = 'none';
-                 this.submitBtn.style.display = 'none';
-                 this.loadHtmlPuzzle('../puzzles/clue02.html', '.paper-clue-container', objectName, () => {
-                     this.completePuzzle('paper-clue');
-                 }, false);
+                this.puzzleInput.style.display = 'none';
+                this.submitBtn.style.display = 'none';
+                this.loadHtmlPuzzle('../puzzles/clue02.html', '.paper-clue-container', objectName, () => {
+                    this.completePuzzle('paper-clue');
+                }, false);
             } else {
                 this.puzzleContent.innerHTML = `
                     <p>${puzzle.question}</p>`;
@@ -177,7 +177,7 @@ class PuzzleManager {
                             setTimeout(callback, 100);
                         }
                     } else {
-                         this.puzzleContent.innerHTML = '<p>퍼즐 콘텐츠를 찾을 수 없습니다.</p>';
+                        this.puzzleContent.innerHTML = '<p>퍼즐 콘텐츠를 찾을 수 없습니다.</p>';
                     }
                     if (transition) {
                         this.puzzleContent.style.opacity = '1';
@@ -598,7 +598,7 @@ class PuzzleManager {
             
             if (userAnswer === puzzle.answer) {
                 isAnswered = true;
-                feedback.textContent = '🎉 STAGE1 실험실 CLEAR 🎉';
+                feedback.textContent = '🎉STAGE1 실험실 CLEAR🎉';
                 feedback.className = 'puzzle-feedback success show';
                 codeInput.disabled = true;
                 
