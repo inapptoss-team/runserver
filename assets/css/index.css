@@ -22,6 +22,8 @@ body{
   position:relative;
   width: min(90vw, 50.625vh); /* 9:16 비율 */
   height: min(160vw, 90vh); /* 9:16 비율 */
+  min-width: 300px;
+  min-height: 533px;
   aspect-ratio: 9 / 16;
   overflow:hidden;
   border-radius:18px;
@@ -443,12 +445,17 @@ body{
   background:linear-gradient(135deg, rgba(20,40,80,.9), rgba(10,20,40,.95));
   border:2px solid rgba(100,180,255,.4);
   border-radius:20px;
-  width:min(70vw, 300px);
-  max-height:85vh;
-  min-height:0;
-  overflow:hidden;
+  width: min(400px, 80vw, 45vh);
+  min-height: auto;
+  max-height: 85vh;
+  overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 40px rgba(100,180,255,.2);
   margin: 0 auto;
+}
+
+.modal-content.has-puzzle {
+  height: auto;
+  min-height: auto;
 }
 
 .modal-header{
@@ -457,7 +464,7 @@ body{
 }
 
 .modal-title{
-  font-family:'Orbitron', ui-sans-serif; font-size:clamp(18px, 4vw, 24px);
+  font-family:'Orbitron', ui-sans-serif; font-size: 18px;
   color:#dbe7ff; margin:0;
 }
 
@@ -529,8 +536,8 @@ body{
 
 .circular-table {
   position: relative;
-  width: min(160px, 20vw);
-  height: min(160px, 20vw);
+  width: 140px;
+  height: 140px;
   margin: 0 auto;
   overflow: visible;
   padding-block: 20px;
@@ -550,8 +557,8 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(50px, 6vw);
-  height: min(50px, 6vw);
+  width: 50px;
+  height: 50px;
   background-color: #6d4c41;
   border-radius: 50%;
 }
@@ -570,6 +577,8 @@ body{
 .chair-item {
   width: 26px;
   height: 26px;
+  min-width: 24px;
+  min-height: 24px;
   position: relative;
   cursor: pointer;
   border-radius: 5px;
@@ -588,14 +597,14 @@ body{
   position: absolute;
   top: -6px;
   right: -6px;
-  width: min(12px, 1.5vw);
-  height: min(12px, 1.5vw);
+  width: 12px;
+  height: 12px;
   background: rgba(100,180,255,.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: min(8px, 1vw);
+  font-size: 8px;
   font-weight: bold;
   color: #fff;
   border: 1px solid rgba(255,255,255,0.3);
@@ -615,7 +624,7 @@ body{
   margin-top: 0.5rem;
   background-color: transparent;
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   letter-spacing: 1px;
   display: none;
 }
@@ -695,13 +704,13 @@ body{
 
 .cabinet-puzzle-container h3 {
   margin-bottom: 4px;
-  font-size: 16px;
+  font-size: clamp(16px, 4vw, 20px);
   color: #64b4ff;
 }
 
 .cabinet-puzzle-container p {
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: clamp(12px, 3vw, 14px);
   color: #a2b3d6;
 }
 
@@ -732,8 +741,10 @@ body{
 }
 
 .lock-image {
-  max-width: min(80px, 10vw);
-  max-height: min(80px, 10vw);
+  max-width: min(100px, 12vw);
+  max-height: min(100px, 12vw);
+  min-width: 100px;
+  min-height: 100px;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -801,13 +812,13 @@ body{
 
 .storage-clue-container h3 {
   margin-bottom: 4px;
-  font-size: 16px;
+  font-size: clamp(16px, 4vw, 20px);
   color: #64b4ff;
 }
 
 .storage-clue-container p {
   margin-bottom: 12px;
-  font-size: 12px;
+  font-size: clamp(12px, 3vw, 14px);
   color: #a2b3d6;
 }
 
@@ -876,13 +887,13 @@ body{
 
 .paper-clue-container h3 {
   margin-bottom: 4px;
-  font-size: 16px;
+  font-size: clamp(16px, 4vw, 20px);
   color: #64b4ff;
 }
 
 .paper-clue-container p {
   margin-bottom: 12px;
-  font-size: 12px;
+  font-size: clamp(12px, 3vw, 14px);
   color: #a2b3d6;
 }
 
@@ -891,18 +902,23 @@ body{
   justify-content: center;
   align-items: center;
   margin-bottom: 0.75rem;
-  padding: 1rem;
+  padding: 0.5rem;
   background: linear-gradient(135deg, rgba(16, 32, 51, 0.6), rgba(26, 42, 71, 0.7));
   border: 2px solid rgba(100, 180, 255, 0.3);
   border-radius: 12px;
   box-shadow: 
     0 0 20px rgba(100, 180, 255, 0.2),
     inset 0 2px 8px rgba(0, 0, 0, 0.3);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .paper-image {
-  max-width: min(120px, 15vw);
-  max-height: min(120px, 15vw);
+  max-width: min(140px, 18vw);
+  max-height: min(140px, 18vw);
+  min-width: 140px;
+  min-height: 140px;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -938,13 +954,13 @@ body{
 
 .mirror-puzzle-container h3 {
   margin-bottom: 4px;
-  font-size: 16px;
+  font-size: clamp(16px, 4vw, 20px);
   color: #64b4ff;
 }
 
 .mirror-puzzle-container p {
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: clamp(12px, 3vw, 14px);
   color: #a2b3d6;
 }
 
@@ -975,8 +991,10 @@ body{
 }
 
 .mirror-image {
-  max-width: min(80px, 10vw);
-  max-height: min(80px, 10vw);
+  max-width: min(140px, 12vw);
+  max-height: min(140px, 12vw);
+  min-width: 140px;
+  min-height: 140px;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -995,11 +1013,11 @@ body{
 
 .mirror-code-input {
   width: 100%;
-  max-width: min(120px, 15vw);
-  padding: 6px 10px;
-  font-size: min(0.9rem, 3vw);
+  max-width: min(220px, 28vw);
+  padding: 8px 8px;
+  font-size: min(1.2rem, 4.5vw);
   text-align: center;
-  letter-spacing: 4px;
+  letter-spacing: 0;
   background: rgba(16, 32, 51, 0.6);
   border: 2px solid rgba(100, 180, 255, 0.3);
   border-radius: 6px;
@@ -1016,7 +1034,7 @@ body{
 
 .mirror-code-input::placeholder {
   color: rgba(166, 216, 255, 0.3);
-  letter-spacing: 15px;
+  letter-spacing: 0;
 }
 
 .mirror-code-input.wrong {

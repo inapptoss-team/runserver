@@ -63,35 +63,42 @@ class PuzzleManager {
         const showContent = () => {
             this.currentPuzzleId = puzzleId;
             this.modalTitle.textContent = puzzle.title;
+            
+            const modalContent = document.querySelector('.modal-content');
+            if (puzzle.type === 'drag-drop' || puzzle.type === 'cabinet-lock' || puzzle.type === 'mirror-code') {
+                modalContent.classList.add('has-puzzle');
+            } else {
+                modalContent.classList.remove('has-puzzle');
+            }
     
             if (puzzle.type === 'clue') {
                 this.puzzleContent.innerHTML = `<p style="font-size: 1.1rem; color: #a6d8ff;">${puzzle.question}</p>`;
                 this.puzzleInput.style.display = 'none';
                 this.submitBtn.style.display = 'none';
             } else if (puzzle.type === 'drag-drop') {
-                this.puzzleInput.style.display = 'none';
-                this.submitBtn.style.display = 'none';
-                this.loadHtmlPuzzle('../puzzles/puzzle01.html', '.chair-puzzle-container', objectName, this.initChairPuzzle.bind(this), false);
+                 this.puzzleInput.style.display = 'none';
+                 this.submitBtn.style.display = 'none';
+                 this.loadHtmlPuzzle('../puzzles/puzzle01.html', '.chair-puzzle-container', objectName, this.initChairPuzzle.bind(this), false);
             } else if (puzzle.type === 'cabinet-lock') {
-                this.puzzleInput.style.display = 'none';
-                this.submitBtn.style.display = 'none';
-                this.loadHtmlPuzzle('../puzzles/puzzle02.html', '.cabinet-puzzle-container', objectName, this.initCabinetPuzzle.bind(this), false);
+                 this.puzzleInput.style.display = 'none';
+                 this.submitBtn.style.display = 'none';
+                 this.loadHtmlPuzzle('../puzzles/puzzle02.html', '.cabinet-puzzle-container', objectName, this.initCabinetPuzzle.bind(this), false);
             } else if (puzzle.type === 'mirror-code') {
-                this.puzzleInput.style.display = 'none';
-                this.submitBtn.style.display = 'none';
-                this.loadHtmlPuzzle('../puzzles/puzzle03.html', '.mirror-puzzle-container', objectName, this.initMirrorPuzzle.bind(this), false);
+                 this.puzzleInput.style.display = 'none';
+                 this.submitBtn.style.display = 'none';
+                 this.loadHtmlPuzzle('../puzzles/puzzle03.html', '.mirror-puzzle-container', objectName, this.initMirrorPuzzle.bind(this), false);
             } else if (puzzle.type === 'storage-clue') {
-                this.puzzleInput.style.display = 'none';
-                this.submitBtn.style.display = 'none';
-                this.loadHtmlPuzzle('../puzzles/clue01.html', '.storage-clue-container', objectName, () => {
-                    this.completePuzzle('storage-clue');
-                }, false);
+                 this.puzzleInput.style.display = 'none';
+                 this.submitBtn.style.display = 'none';
+                 this.loadHtmlPuzzle('../puzzles/clue01.html', '.storage-clue-container', objectName, () => {
+                     this.completePuzzle('storage-clue');
+                 }, false);
             } else if (puzzle.type === 'paper-clue') {
-                this.puzzleInput.style.display = 'none';
-                this.submitBtn.style.display = 'none';
-                this.loadHtmlPuzzle('../puzzles/clue02.html', '.paper-clue-container', objectName, () => {
-                    this.completePuzzle('paper-clue');
-                }, false);
+                 this.puzzleInput.style.display = 'none';
+                 this.submitBtn.style.display = 'none';
+                 this.loadHtmlPuzzle('../puzzles/clue02.html', '.paper-clue-container', objectName, () => {
+                     this.completePuzzle('paper-clue');
+                 }, false);
             } else {
                 this.puzzleContent.innerHTML = `
                     <p>${puzzle.question}</p>`;
@@ -177,7 +184,7 @@ class PuzzleManager {
                             setTimeout(callback, 100);
                         }
                     } else {
-                        this.puzzleContent.innerHTML = '<p>퍼즐 콘텐츠를 찾을 수 없습니다.</p>';
+                         this.puzzleContent.innerHTML = '<p>퍼즐 콘텐츠를 찾을 수 없습니다.</p>';
                     }
                     if (transition) {
                         this.puzzleContent.style.opacity = '1';
@@ -212,8 +219,8 @@ class PuzzleManager {
         
         let chairStates = [0, 0, 0, 0, 0, 0, 0, 0];
         
-        const tableSize = Math.min(160, window.innerWidth * 0.2);
-        const R_INNER = tableSize * 0.2;
+        const tableSize = 140;
+        const R_INNER = tableSize * 0.22;
         const EJECT_DELTA = tableSize * 0.25;
         const R_OUTER = R_INNER + EJECT_DELTA;
 
@@ -226,7 +233,7 @@ class PuzzleManager {
             if (!canvas) return;
             
             const ctx = canvas.getContext('2d');
-            const canvasSize = Math.min(300, window.innerWidth * 0.4);
+            const canvasSize = 250;
             canvas.width = canvasSize;
             canvas.height = canvasSize;
             
@@ -254,8 +261,8 @@ class PuzzleManager {
             };
             
             const chairBaseRadius = (R_INNER / tableSize) * canvasSize * 0.9;
-            const chairMoveRadius = (R_OUTER / tableSize) * canvasSize * 0.7;
-            const chairThirdRadius = (R_OUTER / tableSize) * canvasSize * 0.8;
+            const chairMoveRadius = (R_OUTER / tableSize) * canvasSize * 0.75;
+            const chairThirdRadius = (R_OUTER / tableSize) * canvasSize * 0.85;
             
             console.log('Canvas radii:', chairBaseRadius, chairMoveRadius, chairThirdRadius);
             console.log('R_INNER:', R_INNER, 'R_OUTER:', R_OUTER);
@@ -574,19 +581,35 @@ class PuzzleManager {
         let isAnswered = false;
 
         codeInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            
+            if (value.length > 0) {
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i < value.length) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+                e.target.value = formattedValue;
+            } else {
+                e.target.value = '';
+            }
         });
 
         codeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && codeInput.value.length === 4) {
-                confirmBtn.click();
+            if (e.key === 'Enter') {
+                const numericValue = codeInput.value.replace(/\s/g, '');
+                if (numericValue.length === 4) {
+                    confirmBtn.click();
+                }
             }
         });
 
         confirmBtn.addEventListener('click', () => {
             if (isAnswered) return;
             
-            const userAnswer = codeInput.value.trim();
+            const userAnswer = codeInput.value.replace(/\s/g, '');
             
             if (userAnswer.length !== 4) {
                 codeInput.classList.add('wrong');
@@ -598,7 +621,7 @@ class PuzzleManager {
             
             if (userAnswer === puzzle.answer) {
                 isAnswered = true;
-                feedback.textContent = '🎉STAGE1 실험실 CLEAR🎉';
+                feedback.textContent = '🎉 STAGE1 실험실 CLEAR 🎉';
                 feedback.className = 'puzzle-feedback success show';
                 codeInput.disabled = true;
                 
